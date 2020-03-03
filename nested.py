@@ -20,14 +20,14 @@ def valid_parentheses_star(string):
             cnt -= 1
             char = ''
             if cnt < 0:
-                return('NO ' + str(pos))
+                return('NO ' + str(pos) + '\n')
         else:
             pos += 1
             char = char_n
     if cnt == 0:
         return('YES')
     else:
-        return('NO ' + str(pos - 1))
+        return('NO ' + str(pos - 1) + '\n')
 
 
 def valid_parentheses(string):
@@ -39,12 +39,12 @@ def valid_parentheses(string):
         if char == ')':
             cnt -= 1
         if cnt < 0:
-            return('NO ' + str(pos))
+            return('NO ' + str(pos) + '\n')
         pos += 1
     if cnt == 0:
         return('YES')
     else:
-        return('NO ' + str(pos))
+        return('NO ' + str(pos) + '\n')
 
 
 def valid_square_bracket(string):
@@ -56,12 +56,12 @@ def valid_square_bracket(string):
         if char == ']':
             cnt -= 1
         if cnt < 0:
-            return('NO ' + str(pos))
+            return('NO ' + str(pos) + '\n')
         pos += 1
     if cnt == 0:
         return('YES')
     else:
-        return('NO ' + str(pos))
+        return('NO ' + str(pos) + '\n')
 
 
 def valid_curly_brace(string):
@@ -73,12 +73,12 @@ def valid_curly_brace(string):
         if char == '}':
             cnt -= 1
         if cnt < 0:
-            return('NO ' + str(pos))
+            return('NO ' + str(pos) + '\n')
         pos += 1
     if cnt == 0:
         return('YES')
     else:
-        return('NO ' + str(pos))
+        return('NO ' + str(pos) + '\n')
 
 
 def valid_angle_brace(string):
@@ -90,12 +90,12 @@ def valid_angle_brace(string):
         if char == '>':
             cnt -= 1
         if cnt < 0:
-            return('NO ' + str(pos))
+            return('NO ' + str(pos) + '\n')
         pos += 1
     if cnt == 0:
         return('YES')
     else:
-        return('NO ' + str(pos))
+        return('NO ' + str(pos) + '\n')
 
 
 def is_nested(line):
@@ -111,7 +111,7 @@ def is_nested(line):
     if valid_angle_brace(line) != 'YES':
         return(valid_curly_brace(line))
 
-    return('YES')
+    return('YES\n')
 
 
 def main(args):
@@ -120,8 +120,9 @@ def main(args):
     with open(args) as f:
         content = f.readlines()
     content = [x for x in content]
-    for line in content:
-        print(is_nested(line))
+    with open('output.txt', 'w+') as o:
+        for line in content:
+            o.writelines(is_nested(line))
 
 
 if __name__ == '__main__':
