@@ -1,23 +1,129 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-Module docstring: One line description of what your program does.
+Module docstring: Validate that various types of brackets are properly nested.
 """
-__author__ = "???"
+__author__ = "jsinghw"
 
 import sys
 
 
+def valid_parentheses_star(string):
+    cnt = 0
+    pos = 0
+    char = ''
+    for char_n in string:
+        if char == '(' and char_n == '*':
+            cnt += 1
+            char = ''
+        elif char == '*' and char_n == ')':
+            cnt -= 1
+            char = ''
+            if cnt < 0:
+                return('NO ' + str(pos) + '\n')
+        else:
+            pos += 1
+            char = char_n
+    if cnt == 0:
+        return('YES')
+    else:
+        return('NO ' + str(pos - 1) + '\n')
+
+
+def valid_parentheses(string):
+    cnt = 0
+    pos = 0
+    for char in string:
+        if char == '(':
+            cnt += 1
+        if char == ')':
+            cnt -= 1
+        if cnt < 0:
+            return('NO ' + str(pos) + '\n')
+        pos += 1
+    if cnt == 0:
+        return('YES')
+    else:
+        return('NO ' + str(pos) + '\n')
+
+
+def valid_square_bracket(string):
+    cnt = 0
+    pos = 0
+    for char in string:
+        if char == '[':
+            cnt += 1
+        if char == ']':
+            cnt -= 1
+        if cnt < 0:
+            return('NO ' + str(pos) + '\n')
+        pos += 1
+    if cnt == 0:
+        return('YES')
+    else:
+        return('NO ' + str(pos) + '\n')
+
+
+def valid_curly_brace(string):
+    cnt = 0
+    pos = 0
+    for char in string:
+        if char == '{':
+            cnt += 1
+        if char == '}':
+            cnt -= 1
+        if cnt < 0:
+            return('NO ' + str(pos) + '\n')
+        pos += 1
+    if cnt == 0:
+        return('YES')
+    else:
+        return('NO ' + str(pos) + '\n')
+
+
+def valid_angle_brace(string):
+    cnt = 0
+    pos = 0
+    for char in string:
+        if char == '<':
+            cnt += 1
+        if char == '>':
+            cnt -= 1
+        if cnt < 0:
+            return('NO ' + str(pos) + '\n')
+        pos += 1
+    if cnt == 0:
+        return('YES')
+    else:
+        return('NO ' + str(pos) + '\n')
+
+
 def is_nested(line):
     """Validate a single input line for correct nesting"""
-    pass
+    if valid_parentheses_star(line) != 'YES':
+        return(valid_parentheses_star(line))
+    if valid_parentheses(line) != 'YES':
+        return(valid_parentheses(line))
+    if valid_square_bracket(line) != 'YES':
+        return(valid_square_bracket(line))
+    if valid_curly_brace(line) != 'YES':
+        return(valid_curly_brace(line))
+    if valid_angle_brace(line) != 'YES':
+        return(valid_curly_brace(line))
+
+    return('YES\n')
 
 
 def main(args):
     """Open the input file and call `is_nested()` for each line"""
     # Results: print to console and also write to output file
-    pass
+    with open(args) as f:
+        content = f.readlines()
+    content = [x for x in content]
+    with open('output.txt', 'w+') as o:
+        for line in content:
+            o.writelines(is_nested(line))
 
 
 if __name__ == '__main__':
-    main(sys.argv[1:])
+    main(sys.argv[1])
